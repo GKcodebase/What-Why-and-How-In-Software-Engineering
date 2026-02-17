@@ -1,0 +1,37 @@
+{{ define "main" }}
+<div class="landing-hero">
+    <!-- <img src="{{ .Site.Params.profile_image }}" alt="{{ .Site.Params.author }}" class="profile-img"> -->
+    <h1 class="hero-title">{{ .Site.Title }}</h1>
+    <p class="hero-subtitle">{{ .Site.Params.description }}</p>
+
+    <div class="social-links-hero">
+        {{ with .Site.Params.social.linkedin }}<a href="{{ . }}" target="_blank">LinkedIn</a>{{ end }}
+        {{ with .Site.Params.social.devto }}<a href="{{ . }}" target="_blank">Dev.to</a>{{ end }}
+        {{ with .Site.Params.social.github }}<a href="{{ . }}" target="_blank">GitHub</a>{{ end }}
+    </div>
+    <!-- <a href="/What-Why-and-How-In-Software-Engineering/blogs/" class="cta-button">Read Blogs</a> -->
+</div>
+
+{{ partial "landing-search.html" . }}
+
+<section class="recent-posts">
+    <h2>Recent Posts</h2>
+    <div class="blog-list">
+        {{ $pages := where .Site.RegularPages "Type" "in" (slice "posts" "blogs") }}
+        {{ range first 3 $pages }}
+        <article class="blog-card">
+            <div class="blog-meta">
+                <time>{{ .Date.Format "Jan 2, 2006" }}</time>
+                {{ range .Params.categories }}
+                <span class="category-badge cat-{{ . | lower }}">{{ . }}</span>
+                {{ end }}
+            </div>
+            <h3 class="blog-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+            <p>{{ .Summary | truncate 100 }}</p>
+        </article>
+        {{ end }}
+    </div>
+</section>
+
+{{ partial "newsletter.html" . }}
+{{ end }}

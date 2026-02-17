@@ -1,0 +1,36 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+
+<!-- Open Graph -->
+<meta property="og:title" content="{{ .Title }}" />
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Summary }}{{ end }}" />
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+<meta property="og:url" content="{{ .Permalink }}" />
+{{ with .Params.image }}
+<meta property="og:image" content="{{ . | absURL }}" />{{ end }}
+
+<!-- CSS -->
+{{ $style := resources.Get "css/style.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $style.Permalink }}">
+{{ $treeStyle := resources.Get "css/tree-style.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $treeStyle.Permalink }}">
+<link rel="icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=JetBrains+Mono&display=swap"
+  rel="stylesheet">
+{{ $filterStyle := resources.Get "css/filter-style.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $filterStyle.Permalink }}">
+<script src="/js/filter.js" defer></script>
+{{ $searchStyle := resources.Get "css/search-style.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $searchStyle.Permalink }}">
+
+<!-- Analytics -->
+{{ if not hugo.IsServer }}
+{{ if .Site.Params.analytics.plausible_domain }}
+<script defer data-domain="{{ .Site.Params.analytics.plausible_domain }}"
+  src="https://plausible.io/js/plausible.js"></script>
+{{ end }}
+{{ end }}

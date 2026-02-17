@@ -1,0 +1,100 @@
+<div class="landing-search-container">
+    <h2 class="hero-subtitle" style="margin-bottom: 0.5rem;">Explore Topics</h2>
+
+    <div class="search-controls">
+        <input type="text" id="landing-search" class="search-input" placeholder="Search blogs by title or summary..."
+            onkeyup="filterLandingBlogs()">
+    </div>
+
+    <div class="tag-cloud" id="landing-tags">
+        {{ range $name, $taxonomy := .Site.Taxonomies.tags }}
+        <button class="tag-cloud-item" onclick="toggleTagFilter(this, '{{ $name }}')">#{{ $name }}</button>
+        {{ end }}
+    </div>
+</div>
+
+<div id="landing-results" class="blog-list" style="display:none;"></div>
+
+<script>
+    let activeTags = [];
+
+    function filterLandingBlogs() {
+        const input = document.getElementById('landing-search').value.toLowerCase();
+        const searchContainer = document.getElementById('landing-results');
+        const recentPosts = document.querySelector('.recent-posts');
+        // Get all blog cards from a hidden source or pre-rendered list
+        const allCards = document.querySelectorAll('.search-data-item');
+
+        let hasActiveSearch = input.length > 0 || activeTags.length > 0;
+
+        if (hasActiveSearch) {
+            if (recentPosts) recentPosts.style.display = 'none';
+            searchContainer.style.display = 'grid';
+            searchContainer.innerHTML = ''; // Clear previous
+
+            allCards.forEach(card => {
+                const title = card.getAttribute('data-title') || "";
+                const summary = card.getAttribute('data-summary') || "";
+                const tags = card.getAttribute('data-tags') || "";
+
+                // Check text match
+                const textMatch = title.includes(input) || summary.includes(input);
+
+                // Check tag match (AND logic: must have all active tags)
+                const tagMatch = activeTags.every(t => tags.toLowerCase().includes(t.toLowerCase()));
+
+                if (textMatch && tagMatch) {
+                    // Clone the card to show in results
+                    const clone = card.cloneNode(true);
+                    clone.style.display = 'block';
+                    clone.classList.remove('search-data-item');
+                    clone.classList.add('blog-card'); // Ensure proper styling
+                    searchContainer.appendChild(clone);
+                }
+            });
+
+            if (searchContainer.children.length === 0) {
+                searchContainer.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No results found.</p>';
+            }
+
+        } else {
+            // Reset
+            if (recentPosts) recentPosts.style.display = 'block';
+            searchContainer.style.display = 'none';
+        }
+    }
+
+    function toggleTagFilter(btn, tagName) {
+        btn.classList.toggle('active');
+        const index = activeTags.indexOf(tagName);
+        if (index > -1) {
+            activeTags.splice(index, 1);
+        } else {
+            activeTags.push(tagName);
+        }
+        filterLandingBlogs();
+    }
+</script>
+
+<!-- Hidden Data Container for Search -->
+<div style="display:none;">
+    {{ $pages := where .Site.RegularPages "Type" "in" (slice "posts" "blogs") }}
+    {{ range $pages }}
+    <article class="search-data-item blog-card" data-title="{{ .Title | lower }}" data-summary="{{ .Summary | lower }}"
+        data-tags="{{ if .Params.tags }}{{ delimit .Params.tags " ," }}{{ end }}">
+        <div class="blog-meta">
+            <time>{{ .Date.Format "Jan 2, 2006" }}</time>
+            {{ range .Params.categories }}
+            <span class="category-badge cat-{{ . | lower }}">{{ . }}</span>
+            {{ end }}
+        </div>
+        <h3 class="blog-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+        <p>{{ .Summary | truncate 150 }}</p>
+        <div class="blog-card-tags">
+            {{ range .Params.tags }}
+            <span class="tag">#{{ . }}</span>
+            {{ end }}
+        </div>
+    </article>
+    {{ end }}
+</div>

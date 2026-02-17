@@ -1,0 +1,33 @@
+<header class="sidebar-header">
+    <a href="/What-Why-and-How-In-Software-Engineering/" class="site-title">{{ .Site.Title }}</a>
+    <nav>
+        <ul class="nav-links">
+            {{ $currentPage := . }}
+            {{ range .Site.Menus.main }}
+            <li>
+                <a href="{{ .URL }}" class="{{ if or ($currentPage.IsMenuCurrent " main" .)
+                    ($currentPage.HasMenuCurrent "main" .) }}active{{ end }}">
+                    {{ .Name }}
+                </a>
+            </li>
+            {{ end }}
+        </ul>
+
+        <div class="category-nav">
+            <h4 class="sidebar-section-title">Explore Blogs</h4>
+            {{ $blogSection := .Site.GetPage "section" "blogs" }}
+            {{ if $blogSection }}
+            {{ partial "tree-recursion.html" (dict "Section" $blogSection "CurrentPage" .) }}
+            {{ else }}
+            <p>No blogs found.</p>
+            {{ end }}
+        </div>
+
+        <div class="social-links">
+            {{ with .Site.Params.social.github }}<a href="{{ . }}" target="_blank" rel="noopener">GitHub</a>{{ end }}
+            {{ with .Site.Params.social.linkedin }}<a href="{{ . }}" target="_blank" rel="noopener">LinkedIn</a>{{ end
+            }}
+            {{ with .Site.Params.social.devto }}<a href="{{ . }}" target="_blank" rel="noopener">Dev.to</a>{{ end }}
+        </div>
+    </nav>
+</header>

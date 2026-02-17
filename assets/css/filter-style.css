@@ -1,0 +1,23 @@
+/* Sorting and Filter Controls */
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#sort-select {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--bg-card);
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+#sort-select:hover {
+    border-color: var(--primary);
+}

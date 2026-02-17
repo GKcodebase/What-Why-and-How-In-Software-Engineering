@@ -1,0 +1,27 @@
+{{ $context := .Section }}
+{{ $currentPage := .CurrentPage }}
+
+<ul class="tree-list">
+    {{ range $context.Sections }}
+    <li class="tree-item">
+        <details class="tree-details" {{ if or .IsHome (.IsAncestor $currentPage) (eq . $currentPage) }}open{{ end }}>
+            <summary class="tree-summary">
+                <span class="folder-icon">📂</span>
+                <span class="folder-name">{{ .Title }}</span>
+                <a href="{{ .RelPermalink }}" class="section-link" aria-label="Go to {{ .Title }}">↗</a>
+            </summary>
+            <div class="tree-children">
+                {{ partial "tree-recursion.html" (dict "Section" . "CurrentPage" $currentPage) }}
+            </div>
+        </details>
+    </li>
+    {{ end }}
+
+    {{ range $context.RegularPages }}
+    <li class="tree-file">
+        <a href="{{ .RelPermalink }}" class="tree-link {{ if eq . $currentPage }}active-page{{ end }}">
+            <span class="file-icon">📄</span> {{ .Title }}
+        </a>
+    </li>
+    {{ end }}
+</ul>

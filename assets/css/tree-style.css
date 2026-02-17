@@ -1,0 +1,137 @@
+/* Tree Navigation */
+.tree-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.tree-list {
+    margin-top: 5px;
+}
+
+.tree-item {
+    margin-bottom: 2px;
+}
+
+.tree-summary {
+    cursor: pointer;
+    padding: 4px 0;
+    display: flex;
+    /* Use flexbox for layout */
+    align-items: center;
+    /* Vertically align items */
+    border-radius: var(--radius);
+    color: var(--text-main);
+    list-style: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+    position: relative;
+}
+
+.tree-summary:hover {
+    background-color: var(--bg-card);
+    /* Mild highlight */
+}
+
+/* Hide default marker */
+.tree-summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Custom expand/collapse control could be added if needed, but native is okay */
+.folder-icon {
+    margin-right: 6px;
+    font-size: 1.1em;
+}
+
+.folder-name {
+    flex-grow: 1;
+    /* Name takes available space */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Link to Section (Arrow) */
+.section-link {
+    color: var(--text-muted);
+    font-size: 0.8em;
+    padding: 0 4px;
+    opacity: 0.5;
+    transition: opacity 0.2s, color 0.2s;
+    text-decoration: none;
+    margin-left: auto;
+    /* Push to right */
+}
+
+.tree-summary:hover .section-link {
+    opacity: 1;
+}
+
+.section-link:hover {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+
+/* Children List */
+.tree-children {
+    padding-left: 1.2rem;
+    border-left: 1px dashed var(--border-color);
+    margin-left: 0.5rem;
+    margin-top: 2px;
+}
+
+/* Regular Files */
+.tree-file {
+    padding: 2px 0 2px 0.2rem;
+}
+
+.tree-link {
+    display: flex;
+    align-items: center;
+    color: var(--text-muted);
+    font-size: 0.9em;
+    text-decoration: none;
+    padding: 4px 6px;
+    border-radius: var(--radius);
+    transition: all 0.2s;
+}
+
+.tree-link:hover,
+.active-page {
+    color: var(--primary);
+    background-color: var(--bg-card);
+    font-weight: 500;
+}
+
+.file-icon {
+    margin-right: 6px;
+    font-size: 0.9em;
+    opacity: 0.7;
+}
+
+/* Tags in Blog List */
+.blog-card-tags {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tag {
+    background: var(--bg-body);
+    color: var(--text-muted);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+}
+
+.tag:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    text-decoration: none;
+}

@@ -91,7 +91,7 @@ The site must be:
 **Content Requirements:**
 
 * Small profile photo
-* Blog title: *What, How and Why in Software*
+* Blog title: *What, How and Why in Software Engineering*
 * 2–3 line author introduction
 * External links:
 
@@ -99,6 +99,8 @@ The site must be:
   * dev.to
   * GitHub
 * Primary CTA: “Read Blogs”
+* Side MenuBar which will have all the blogs(which can be opened and closed based on parent folder name)
+* Landing page should have a search bar to search the blogs.
 
 ---
 

@@ -1,0 +1,10 @@
+{{ if .Site.Params.newsletter.show_newsletter }}
+<div class="newsletter-section">
+    <h3>Get new blogs via email</h3>
+    <p>Subscribe to stay updated with the latest in software engineering.</p>
+    <form action="{{ .Site.Params.newsletter.action }}" method="post" class="newsletter-form" target="_blank">
+        <input type="email" name="email_address" placeholder="Your email address" required class="input-field">
+        <button type="submit" class="submit-btn" name="subscribe">Subscribe</button>
+    </form>
+</div>
+{{ end }}

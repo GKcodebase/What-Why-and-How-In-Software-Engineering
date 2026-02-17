@@ -1,0 +1,44 @@
+baseURL = 'https://GKcodebase.github.io/What-Why-and-How-In-Software-Engineering/'
+languageCode = 'en-us'
+title = 'What, How and Why in Software'
+theme = [] # No theme, using custom layouts
+
+[markup.goldmark.renderer]
+unsafe = true # Allow HTML in Markdown if needed
+
+[menus]
+[[menus.main]]
+  name = 'Home'
+  url = '/'
+  weight = 10
+[[menus.main]]
+  name = 'Blogs'
+  url = '/blogs/'
+  weight = 20
+[[menus.main]]
+  name = 'About'
+  url = '/about/'
+  weight = 30
+
+[params]
+  author = "Gokul GK"
+  description = "A technical blog explaining What, How, and Why in Software Engineering."
+  profile_image = "/images/profile.svg"  # Create a placeholder image
+  
+  [params.social]
+    linkedin = "https://www.linkedin.com/in/gk-gokul/"
+    github = "https://github.com/GKcodebase"
+    devto = "https://dev.to/gokul_gk"
+
+  [params.newsletter]
+    show_newsletter = false
+    provider = "convertkit" # or mailchimp
+    id = "YOUR_FORM_ID"
+    action = "https://app.convertkit.com/forms/YOUR_FORM_ID/subscriptions"
+
+  [params.analytics]
+    plausible_domain = "GKcodebase.github.io/What-Why-and-How-In-Software-Engineering"
+    umami_id = ""
+
+  [params.ads]
+    google_ads_client = "ca-pub-XXXXXXXXXXXXXXXX"
